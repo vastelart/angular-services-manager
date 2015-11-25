@@ -5,10 +5,10 @@ tables.controller('authCtrl', ['$scope', 'checkAuth', function ($scope, checkAut
 	};
 }]);
 
-
-tables.controller('customersCtrl', ['$scope', 'addService', function ($scope, addService) {
+tables.controller('customersCtrl', ['$scope', '$resource', '$state', '$stateParams', 'addService', function ($scope, $resource, $state, $stateParams, addService) {
 
 	$scope.servLoader = true;
+	//$scope.unit = 'MURGE';
 	
 	//===================
 
@@ -25,6 +25,9 @@ tables.controller('customersCtrl', ['$scope', 'addService', function ($scope, ad
 
 	$scope.editService = function(idp) {
 		console.log(idp);
+		$scope.unit = idp;
+		$state.go('edit', {id: $scope.unit});
+		return $scope.unit;
 	};
 
 	$scope.removeServ = function (idp) {

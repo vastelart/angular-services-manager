@@ -14,5 +14,10 @@ tables.config(function($stateProvider, $urlRouterProvider) {
 			url: '/customers',
 			templateUrl: '/templates/customers.html'
 	})
+		.state('edit', {
+			url: '/edit/:id',
+			templateUrl: '/templates/edit.html',
+			controller: 'customersCtrl'
+		})
 	
 });
