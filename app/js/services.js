@@ -17,11 +17,19 @@ tables.factory('checkAuth', function checkAuthFactory ($http, $resource, $state)
 
 tables.factory('addService', function addServiceFactory ($firebaseObject, $firebaseArray) {
 	return {
-		addItem: function (service) {
+		addItem: function (service, scope, idpToCheck) {
 			var form = document.querySelector('#addServiceForm');
 			var ref = new Firebase('https://incandescent-fire-1819.firebaseio.com/');
-			//var refs = ref.child('calls');
-			
+
+			//Если введенный IDP уже есть в базе - останавливаемся
+			for(var idp in idpToCheck) {
+				if(service.idp === idpToCheck[idp]['IDP']) {
+					scope.warningIDP = true;
+					return false;
+				}
+			}
+
+			//Если с IDP все ок, добавляем в базу
 			ref.push().set({
 				IDP: service.idp,
 				bill: 0,
@@ -33,6 +41,7 @@ tables.factory('addService', function addServiceFactory ($firebaseObject, $fireb
 				}
 				else {
 			  		console.log('OK');
+			  		scope.warningIDP = false;
 				}
 			});
 

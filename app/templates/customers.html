@@ -17,6 +17,21 @@
 					<button class="btn btn-md btn-success" ng-disabled="addService.$invalid">Создать</button>
 				</div>
 			</form>
+			
+			<p class="bg-warning" ng-show="warningIDP">Введенное значение IDP уже имеется в базе</p>
+
+			<h2>Удалить</h2>
+			<hr>
+			<form name="removeService" ng-submit="removeService(service)">
+				<div class="form-group">
+					<select name="idp" ng-model="service.idp" id="removeServiceSelect" class="form-control">
+						<option ng-repeat="custom in customers" ng-bind="custom.IDP" value="{{ custom.IDP }}"></option>
+					</select>
+				</div>
+				<div class="form-group">
+					<button ng-disabled="removeService.$invalid" class="btn btn-danger">Удалить</button>
+				</div>
+			</form>
 		</div>
 
 		<div class="col-lg-8 col-lg-offset-1">

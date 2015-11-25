@@ -13,11 +13,13 @@ tables.controller('customersCtrl', ['$scope', 'addService', function ($scope, ad
 	//===================
 
 	$scope.customers = addService.getServices($scope);
+	console.log($scope.customers);
 
 	//===================
+	$scope.warningIDP = false;
 
 	$scope.addUnit = function (service) {
-		addService.addItem(service);
+		addService.addItem(service, $scope, $scope.customers);
 	};
 
 	//===================
