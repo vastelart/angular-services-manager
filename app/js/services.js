@@ -42,6 +42,7 @@ tables.factory('addService', function addServiceFactory ($firebaseObject, $fireb
 				else {
 			  		console.log('OK');
 			  		scope.warningIDP = false;
+			  		scope.$apply();
 				}
 			});
 
@@ -60,6 +61,18 @@ tables.factory('addService', function addServiceFactory ($firebaseObject, $fireb
 				});
 
 			return $firebaseArray(services);
+		},
+
+		removeItem: function (index) {
+			var services = new Firebase('https://incandescent-fire-1819.firebaseio.com/' + index);
+			var serviceItem = $firebaseObject(services);
+			var deleteForm = document.querySelector('#removeServiceForm');
+
+			serviceItem.$remove().then(function () {
+				console.log('REMOVED ' + serviceItem);
+			}, function (error) {
+				console.log(error);
+			});
 		}
 	}
 });

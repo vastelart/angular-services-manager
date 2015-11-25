@@ -13,7 +13,6 @@ tables.controller('customersCtrl', ['$scope', 'addService', function ($scope, ad
 	//===================
 
 	$scope.customers = addService.getServices($scope);
-	console.log($scope.customers);
 
 	//===================
 	$scope.warningIDP = false;
@@ -26,7 +25,11 @@ tables.controller('customersCtrl', ['$scope', 'addService', function ($scope, ad
 
 	$scope.editService = function(idp) {
 		console.log(idp);
-	};	
+	};
+
+	$scope.removeServ = function (idp) {
+		addService.removeItem(idp);
+	};
 }]);
 
 tables.controller();
