@@ -1,0 +1,32 @@
+{
+  "name": "TABLES",
+  "description": "CUSTOMERS MANAGEMENT",
+  "main": "gulpfile.js",
+  "authors": [
+    "Roman Spazm"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "customers",
+    "management"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.7",
+    "angular-animate": "~1.4.6",
+    "angular-sanitize": "~1.4.6",
+    "normalize-css": "normalize.css#~3.0.3",
+    "angular-ui-router": "0.2.15",
+    "bootstrap": "~3.3.5",
+    "angular-resource": "~1.4.8"
+  }
+}

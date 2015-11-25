@@ -1,0 +1,47 @@
+<div class="container" ng-controller="customersCtrl" ng-hide="loginFalse">
+	<div class="row">
+		<div class="col-lg-3">
+			<h2>Добавить</h2>
+			<hr>
+			<form name="addService" ng-submit="addUnit(service)" id="addServiceForm" novalidate>
+				<div class="form-group">
+					<label for="idpAddInput"><strong>IDP</strong></label>
+					<input id="idpAddInput" type="number" name="idp" ng-model="service.idp" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="loginAddInput"><strong>Логин</strong></label>
+					<input id="loginAddInput" type="text" name="login" ng-model="service.login" class="form-control" required>
+				</div>
+
+				<div class="form-group">
+					<button class="btn btn-md btn-success" ng-disabled="addService.$invalid">Создать</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-lg-8 col-lg-offset-1">
+			<h2>Редактировать</h2>
+			<hr>
+			<table class="table table-hover" ng-show="customers">
+				<thead>
+					<th>ID</th>
+					<th>Логин</th>
+					<th>IDP</th>
+					<th>Баланс</th>
+					<th>Email для технической поддержки</th>
+					<th></th>
+				</thead>
+				<tr ng-repeat="customer in customers track by $index">
+					<td>{{ $index }}</td>
+					<td ng-bind="customer.login"></td>
+					<td ng-bind="customer.IDP"></td>
+					<td ng-bind="customer.bill"></td>
+					<td ng-bind="customer.email"></td>
+					<td><button class="btn btn-md btn-warning" ng-click="editService(customer.IDP)">Редактировать</button></td>
+				</tr>
+			</table>
+			<p class="bg-warning" ng-show="!customers">NO SERVICES IN DATABASE</p>
+			<p id="servicesLoader" ng-show="servLoader">Загрузка...</p>
+		</div>
+	</div>
+</div>

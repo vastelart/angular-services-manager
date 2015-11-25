@@ -1,0 +1,5 @@
+[
+	{"login" : "Master", "IDP" : "1", "bill" : "16", "email" : "master@master.com"},
+	{"login" : "Dev", "IDP" : "2", "bill" : "14.3", "email" : "dev@master.com"},
+	{"login" : "Hotfix", "IDP" : "3", "bill" : "0", "email" : "hotfix@master.com"}
+]
