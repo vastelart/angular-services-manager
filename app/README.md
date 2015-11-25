@@ -1,1 +1,0 @@
-# angular-services-manager
