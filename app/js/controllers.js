@@ -5,16 +5,17 @@ tables.controller('authCtrl', ['$scope', 'checkAuth', function ($scope, checkAut
 	};
 }]);
 
-tables.controller('customersCtrl', ['$scope', '$resource', '$state', '$stateParams', 'addService', function ($scope, $resource, $state, $stateParams, addService) {
+tables.controller('customersCtrl', ['$scope', '$resource', '$state', '$stateParams', 'addService', '$rootScope', function ($scope, $resource, $state, $stateParams, addService, $rootScope) {
 
 	$scope.servLoader = true;
-	//$scope.unit = 'MURGE';
+	$scope.unitToEdit;
+
+	//===================
+
+	$scope.customers = addService.getServices($scope, '');
+
+	//===================
 	
-	//===================
-
-	$scope.customers = addService.getServices($scope);
-
-	//===================
 	$scope.warningIDP = false;
 
 	$scope.addUnit = function (service) {
@@ -23,16 +24,22 @@ tables.controller('customersCtrl', ['$scope', '$resource', '$state', '$statePara
 
 	//===================
 
-	$scope.editService = function(idp) {
-		console.log(idp);
-		$scope.unit = idp;
-		$state.go('edit', {id: $scope.unit});
-		return $scope.unit;
+	$scope.editService = function(uid) {
+		$state.go('edit', {id: uid})
+		.then(function () {
+			$rootScope.unitToEdit = addService.getServices($scope, uid);
+		});
 	};
+
+	//===================
 
 	$scope.removeServ = function (idp) {
-		addService.removeItem(idp);
+		addService.removeItem($scope, idp);
+	};
+
+	//===================
+
+	$scope.editUnit = function (id, idp, unit) {
+		addService.edit(id, idp, unit);
 	};
 }]);
-
-tables.controller();

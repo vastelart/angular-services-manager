@@ -30,3 +30,28 @@ gulp.task('php-serve', function() {
         keepalive: true
     });
 });
+
+//BUILD
+
+gulp.task('build', ['templates', 'imagemin'], function() {
+    var assets = useref.assets();
+
+    return gulp.src(['app/index.html', 'app/data.json', 'app/login.json'])
+    .pipe(assets)
+    .pipe(gulpif('*.js', ngAnnotate()))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', minifyCss()))
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('templates', function() {
+    return gulp.src('app/templates/*')
+        .pipe(gulp.dest('dist/angular/views'));
+});
+
+gulp.task('clean', function() {
+    return gulp.src('dist', {read: false})
+        .pipe(clean());
+});

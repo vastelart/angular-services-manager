@@ -14,7 +14,7 @@
 				</div>
 
 				<div class="form-group">
-					<button class="btn btn-md btn-success" ng-disabled="addService.$invalid">Создать</button>
+					<button id="addSubmit" class="btn btn-md btn-success" ng-disabled="addService.$invalid">Создать</button>
 				</div>
 			</form>
 			
@@ -30,7 +30,7 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<button ng-disabled="removeService.$invalid" class="btn btn-danger" type="submit">Удалить</button>
+					<button id="removeSubmit" ng-disabled="removeService.$invalid" class="btn btn-danger" type="submit">Удалить</button>
 				</div>
 			</form>
 		</div>
@@ -56,7 +56,7 @@
 					<td ng-bind="customer.IDP"></td>
 					<td ng-bind="customer.bill"></td>
 					<td ng-bind="customer.email"></td>
-					<td><button class="btn btn-md btn-warning" ng-click="editService(customer.IDP)">Редактировать</button></td>
+					<td><button class="btn btn-md btn-warning" ng-click="editService(customer.$id)">Редактировать</button></td>
 				</tr>
 			</table>
 			<p class="bg-warning" ng-show="!customers">NO SERVICES IN DATABASE</p>

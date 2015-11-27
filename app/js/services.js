@@ -15,10 +15,18 @@ tables.factory('checkAuth', function checkAuthFactory ($http, $resource, $state)
 	}
 });
 
-tables.factory('addService', function addServiceFactory ($firebaseObject, $firebaseArray) {
+tables.factory('addService', function addServiceFactory ($firebaseObject, $firebaseArray, $state) {
+	
+	var deleteForm = document.querySelector('#removeServiceForm');
+	
+	var removeSubmit = document.querySelector('#removeSubmit');
+	var editSubmit = document.querySelector('#editSubmit');
+
+
 	return {
 		addItem: function (service, scope, idpToCheck) {
 			var form = document.querySelector('#addServiceForm');
+			//var addSubmit = document.querySelector('#addSubmit');
 			var ref = new Firebase('https://incandescent-fire-1819.firebaseio.com/');
 
 			//Если введенный IDP уже есть в базе - останавливаемся
@@ -47,10 +55,11 @@ tables.factory('addService', function addServiceFactory ($firebaseObject, $fireb
 			});
 
 			form.reset();
+			scope.service = '';
 		},
 
-		getServices: function (scope) {
-			var services = new Firebase('https://incandescent-fire-1819.firebaseio.com/');
+		getServices: function (scope, uid) {
+			var services = new Firebase('https://incandescent-fire-1819.firebaseio.com/' + uid);
 			
 			$firebaseArray(services).$loaded()
 				.then(function() {
@@ -60,18 +69,42 @@ tables.factory('addService', function addServiceFactory ($firebaseObject, $fireb
 					console.log(error);
 				});
 
-			return $firebaseArray(services);
+			if(uid !== '') {
+				return $firebaseObject(services);
+			}
+			else {
+				return $firebaseArray(services);
+			}
 		},
 
-		removeItem: function (index) {
+		removeItem: function (scope, index) {
 			var services = new Firebase('https://incandescent-fire-1819.firebaseio.com/' + index);
 			var serviceItem = $firebaseObject(services);
-			var deleteForm = document.querySelector('#removeServiceForm');
 
 			serviceItem.$remove().then(function () {
 				console.log('REMOVED ' + serviceItem);
 			}, function (error) {
 				console.log(error);
+			});
+
+			deleteForm.reset();
+			scope.serv = '';
+		},
+
+		edit: function (id, idp, unit) {
+			var services = new Firebase('https://incandescent-fire-1819.firebaseio.com/' + id);
+			var ref = $firebaseObject(services);
+
+			ref.login = unit.login;
+			ref.email = unit.email;
+			ref.bill = unit.bill;
+			ref.IDP = idp;
+
+			ref.$save().then(function(ref) {
+			  console.log('OK');
+			  $state.go('customers');
+			}, function(error) {
+			  console.log("Error:", error);
 			});
 		}
 	}
