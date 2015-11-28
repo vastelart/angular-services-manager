@@ -33,7 +33,7 @@ gulp.task('php-serve', function() {
 
 //BUILD
 
-gulp.task('build', ['templates', 'imagemin'], function() {
+gulp.task('build', ['templates'], function() {
     var assets = useref.assets();
 
     return gulp.src(['app/index.html', 'app/data.json', 'app/login.json'])
@@ -48,7 +48,7 @@ gulp.task('build', ['templates', 'imagemin'], function() {
 
 gulp.task('templates', function() {
     return gulp.src('app/templates/*')
-        .pipe(gulp.dest('dist/angular/views'));
+        .pipe(gulp.dest('dist/templates'));
 });
 
 gulp.task('clean', function() {
